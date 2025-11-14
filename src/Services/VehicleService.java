@@ -54,5 +54,32 @@ public class VehicleService {
             System.out.println("✗ Failed to save vehicle to storage.");
         }
     }
+
+
+
+    public void updateVehicle(Vehicle vehicle) {
+        // Validate the vehicle
+        ValidationResult validationResult = validator.validate(vehicle);
+
+        if (!validationResult.isValid()) {
+            System.out.println("Validation failed:");
+            for (String error : validationResult.getErrors()) {
+                System.out.println("  - " + error);
+            }
+            return;
+        }
+
+        // Update in repository
+        boolean updated = repository.update(vehicle);
+
+        if (updated) {
+            System.out.println("✓ Vehicle updated successfully!");
+            System.out.println("  Name: " + vehicle.getName());
+            System.out.println("  Brand: " + vehicle.getBrand());
+            System.out.println("  Price: $" + String.format("%.2f", vehicle.getPrice()));
+        } else {
+            System.out.println("✗ Failed to update vehicle in storage.");
+        }
+    }
 }
 

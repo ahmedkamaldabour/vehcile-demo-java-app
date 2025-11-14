@@ -1,5 +1,6 @@
 import Manager.AddVehicle;
 import Manager.ListAllVehicle;
+import Manager.UpdateVehicle;
 import Repository.JsonVehicleRepository;
 import Repository.VehicleRepositoryInterface;
 import Services.VehicleInputService;
@@ -24,6 +25,7 @@ public class ScanData {
     private final VehicleInputService inputService;
     private final AddVehicle addVehicle;
     private final ListAllVehicle listAllVehicle;
+    private final UpdateVehicle updateVehicle;
 
     /**
      * Constructor - Bootstrap all dependencies
@@ -39,6 +41,7 @@ public class ScanData {
         // Create controllers/managers
         this.addVehicle = new AddVehicle(vehicleService, inputService);
         this.listAllVehicle = new ListAllVehicle(repository);
+        this.updateVehicle = new UpdateVehicle(vehicleService, inputService);
     }
 
     public void start() {
@@ -61,7 +64,8 @@ public class ScanData {
                     System.out.println("Removing a vehicle...");
                     break;
                 case 4:
-                    System.out.println("Renting a vehicle...");
+                    System.out.println("Updating a vehicle...");
+                    updateVehicle.updateVehicle();
                     break;
                 case 5:
                     System.out.println("Returning a vehicle...");
@@ -83,7 +87,7 @@ public class ScanData {
         System.out.println("1. List Vehicles");
         System.out.println("2. Add a Vehicle");
         System.out.println("3. Remove a Vehicle");
-        System.out.println("4. Rent a Vehicle");
+        System.out.println("4. Updating a Vehicle");
         System.out.println("5. Return a Vehicle");
         System.out.println("6. Exit");
 

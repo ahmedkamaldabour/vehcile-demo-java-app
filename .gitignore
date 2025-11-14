@@ -59,6 +59,6 @@ Thumbs.db
 
 ### Optional: Runtime data files
 # If vehicles.json is generated at runtime and not hand-maintained, uncomment next line:
-src/vehicles.json
+# src/vehicles.json
 
 # End of file

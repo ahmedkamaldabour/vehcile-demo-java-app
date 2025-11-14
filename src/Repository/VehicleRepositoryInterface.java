@@ -9,9 +9,10 @@ import java.util.List;
  * Classes depend on abstractions (this interface) not concrete implementations
  */
 public interface VehicleRepositoryInterface {
-    boolean save(Vehicle vehicle);
     List<Vehicle> findAll();
     Vehicle findById(String id);
+    boolean save(Vehicle vehicle);
+    boolean update(Vehicle vehicle);
     boolean delete(String id);
 }
 

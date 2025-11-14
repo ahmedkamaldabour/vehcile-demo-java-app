@@ -14,7 +14,7 @@ import java.util.List;
  * Concrete implementation of VehicleRepositoryInterface
  * Single Responsibility: Handle JSON file operations
  * This is like Laravel's Eloquent Model or a custom Repository class
- *
+ * <p>
  * Uses Gson library for JSON serialization/deserialization
  * Much cleaner and more reliable than manual parsing!
  */
@@ -27,6 +27,39 @@ public class JsonVehicleRepository implements VehicleRepositoryInterface {
         this.filePath = filePath;
         // Create Gson with pretty printing for readable JSON files
         this.gson = new GsonBuilder().setPrettyPrinting().create();
+    }
+
+    @Override
+    public List<Vehicle> findAll() {
+        try {
+            File file = new File(filePath);
+            if (!file.exists() || file.length() == 0) {
+                return new ArrayList<>();
+            }
+
+            try (Reader reader = new FileReader(file)) {
+                // Gson magic: One line to convert JSON to List<Vehicle>!
+                // This is like Laravel's json_decode($json, true)
+                Type vehicleListType = new TypeToken<ArrayList<Vehicle>>() {
+                }.getType();
+                List<Vehicle> vehicles = gson.fromJson(reader, vehicleListType);
+                return vehicles != null ? vehicles : new ArrayList<>();
+            }
+        } catch (Exception e) {
+            System.err.println("Error reading vehicles: " + e.getMessage());
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public Vehicle findById(String id) {
+        List<Vehicle> vehicles = findAll();
+        for (Vehicle vehicle : vehicles) {
+            if (vehicle.getUuid().equals(id)) {
+                return vehicle;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -43,31 +76,35 @@ public class JsonVehicleRepository implements VehicleRepositoryInterface {
     }
 
     @Override
-    public List<Vehicle> findAll() {
+    public boolean update(Vehicle vehicle) {
         try {
-            File file = new File(filePath);
-            if (!file.exists() || file.length() == 0) {
-                return new ArrayList<>();
-            }
+            Vehicle vehicleData = findById(vehicle.getUuid());
+            if (vehicleData != null) {
+                // update fields
+                vehicleData.setName(vehicle.getName());
+                vehicleData.setBrand(vehicle.getBrand());
+                vehicleData.setPrice(vehicle.getPrice());
 
-            try (Reader reader = new FileReader(file)) {
-                // Gson magic: One line to convert JSON to List<Vehicle>!
-                // This is like Laravel's json_decode($json, true)
-                Type vehicleListType = new TypeToken<ArrayList<Vehicle>>(){}.getType();
-                List<Vehicle> vehicles = gson.fromJson(reader, vehicleListType);
-                return vehicles != null ? vehicles : new ArrayList<>();
+                List<Vehicle> vehicles = findAll();
+                // replace the old vehicle with updated one without changing list reference and uuid
+                for (int i = 0; i < vehicles.size(); i++) {
+                    if (vehicles.get(i).getUuid().equals(vehicle.getUuid())) {
+                        vehicles.set(i, vehicleData);
+                        break;
+                    }
+                }
+                writeToFile(vehicles);
+                return true;
+            } else {
+                System.err.println("Vehicle with ID " + vehicle.getUuid() + " not found.");
+                return false;
             }
         } catch (Exception e) {
-            System.err.println("Error reading vehicles: " + e.getMessage());
-            return new ArrayList<>();
+            System.err.println("Error updating vehicle: " + e.getMessage());
         }
+        return false;
     }
 
-    @Override
-    public Vehicle findById(String id) {
-        // Implementation for finding by ID
-        return null;
-    }
 
     @Override
     public boolean delete(String id) {

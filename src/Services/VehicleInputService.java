@@ -1,6 +1,7 @@
 package Services;
 
 import Vehicles.Vehicle;
+
 import java.util.Scanner;
 
 /**
@@ -22,7 +23,22 @@ public class VehicleInputService {
     public Vehicle getVehicleFromUser() {
         // Clear any leftover newline
         scanner.nextLine();
+        return getVehicle();
+    }
 
+    public Vehicle getVehicleFromUserWithId() {
+        scanner.nextLine();
+
+        System.out.print("Enter vehicle UUID OR ID: ");
+        String id = scanner.nextLine().trim();
+
+        Vehicle v = getVehicle();
+
+        return new Vehicle(id, v.getName(), v.getBrand(), v.getPrice());
+    }
+
+
+    private Vehicle getVehicle() {
         System.out.print("Enter vehicle name: ");
         String vehicleName = scanner.nextLine().trim();
 

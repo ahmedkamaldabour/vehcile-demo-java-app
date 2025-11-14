@@ -43,7 +43,6 @@ public class ListAllVehicle {
 
         for (int i = 0; i < vehicles.size(); i++) {
             Vehicle vehicle = vehicles.get(i);
-            // add uuid to display for better identification
             System.out.println((i + 1) + ". [" + vehicle.getUuid() + "] ");
             System.out.println(("   name") + ". " + vehicle.getName());
             System.out.println("   Brand: " + vehicle.getBrand());
