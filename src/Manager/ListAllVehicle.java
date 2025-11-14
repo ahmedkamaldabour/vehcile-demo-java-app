@@ -9,7 +9,7 @@ import java.util.List;
  * REFACTORED using SOLID Principles
  * Single Responsibility: Display all vehicles
  * Dependency Inversion: Depends on VehicleRepositoryInterface (abstraction)
- *
+ * <p>
  * Think of this like a Laravel Controller action
  */
 public class ListAllVehicle {
@@ -43,7 +43,9 @@ public class ListAllVehicle {
 
         for (int i = 0; i < vehicles.size(); i++) {
             Vehicle vehicle = vehicles.get(i);
-            System.out.println((i + 1) + ". " + vehicle.getName());
+            // add uuid to display for better identification
+            System.out.println((i + 1) + ". [" + vehicle.getUuid() + "] ");
+            System.out.println(("   name") + ". " + vehicle.getName());
             System.out.println("   Brand: " + vehicle.getBrand());
             System.out.println("   Price: $" + String.format("%.2f", vehicle.getPrice()));
             System.out.println();
