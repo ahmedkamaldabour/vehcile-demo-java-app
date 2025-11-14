@@ -81,5 +81,17 @@ public class VehicleService {
             System.out.println("✗ Failed to update vehicle in storage.");
         }
     }
+
+    public boolean deleteVehicleById(String vehicleId) {
+        boolean deleted = repository.delete(vehicleId);
+
+        if (deleted) {
+            System.out.println("✓ Vehicle deleted successfully!");
+        } else {
+            System.out.println("✗ Vehicle with ID " + vehicleId + " not found.");
+        }
+
+        return deleted;
+    }
 }
 

@@ -108,7 +108,18 @@ public class JsonVehicleRepository implements VehicleRepositoryInterface {
 
     @Override
     public boolean delete(String id) {
-        // Implementation for deletion
+        try {
+            List<Vehicle> vehicles = findAll();
+            boolean removed = vehicles.removeIf(vehicle -> vehicle.getUuid().equals(id));
+            if (removed) {
+                writeToFile(vehicles);
+                return true;
+            } else {
+                System.err.println("Vehicle with ID " + id + " not found.");
+            }
+        } catch (Exception e) {
+            System.err.println("Error deleting vehicle: " + e.getMessage());
+        }
         return false;
     }
 

@@ -26,6 +26,7 @@ public class VehicleInputService {
         return getVehicle();
     }
 
+
     public Vehicle getVehicleFromUserWithId() {
         scanner.nextLine();
 
@@ -37,6 +38,11 @@ public class VehicleInputService {
         return new Vehicle(id, v.getName(), v.getBrand(), v.getPrice());
     }
 
+        public String getVehicleId() {
+        scanner.nextLine();
+        System.out.print("Enter vehicle UUID OR ID: ");
+        return scanner.nextLine().trim();
+    }
 
     private Vehicle getVehicle() {
         System.out.print("Enter vehicle name: ");
