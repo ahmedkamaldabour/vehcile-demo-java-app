@@ -42,7 +42,7 @@ public class ScanData {
 
         // Create controllers/managers
         this.addVehicle = new AddVehicle(vehicleService, inputService);
-        this.listAllVehicle = new ListAllVehicle(repository);
+        this.listAllVehicle = new ListAllVehicle(vehicleService);
         this.updateVehicle = new UpdateVehicle(vehicleService, inputService);
         this.deleteVehicle = new DeleteVehicle(vehicleService, inputService);
     }
@@ -71,14 +71,11 @@ public class ScanData {
                     System.out.println("Updating a vehicle...");
                     updateVehicle.updateVehicle();
                     break;
-                case 5:
-                    System.out.println("Returning a vehicle...");
-                    break;
                 default:
                     System.out.println("Invalid option. Please try again.");
             }
 
-            if (choice == 6 || choice < 1 || choice > 6) {
+            if (choice == 5 || choice < 1 || choice > 5) {
                 hasScanned = false;
             }
         }
@@ -92,8 +89,7 @@ public class ScanData {
         System.out.println("2. Add a Vehicle");
         System.out.println("3. Remove a Vehicle");
         System.out.println("4. Updating a Vehicle");
-        System.out.println("5. Return a Vehicle");
-        System.out.println("6. Exit");
+        System.out.println("5. Exit");
 
         System.out.print("Enter your choice: ");
     }
