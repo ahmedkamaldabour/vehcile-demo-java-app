@@ -25,6 +25,29 @@ public class JsonVehicleRepository implements VehicleRepositoryInterface {
 
     public JsonVehicleRepository(String filePath) {
         this.filePath = filePath;
+        // Check if a file exists, if not, create it with empty array
+        File file = new File(filePath);
+        if (!file.exists()) {
+            try {
+                // Create parent directories if they don't exist
+                File parentDir = file.getParentFile();
+                if (parentDir != null && !parentDir.exists()) {
+                    if (!parentDir.mkdirs()) {
+                        System.err.println("Warning: Could not create parent directories for: " + filePath);
+                    }
+                }
+                // Create empty JSON file with empty array
+                if (file.createNewFile()) {
+                    try (Writer writer = new FileWriter(file)) {
+                        writer.write("[]");
+                    }
+                } else {
+                    System.err.println("Warning: File already exists or could not be created: " + filePath);
+                }
+            } catch (IOException e) {
+                System.err.println("Warning: Could not create vehicles file: " + e.getMessage());
+            }
+        }
         // Create Gson with pretty printing for readable JSON files
         this.gson = new GsonBuilder().setPrettyPrinting().create();
     }
