@@ -1,8 +1,14 @@
 [
   {
-    "uuid": "155de86f-0fb2-4ec4-a915-109d0d3cd488",
-    "name": "test",
-    "brand": "test",
-    "price": 1000.0
+    "uuid": "9cf7e9c6-1e68-4882-bac4-953acb30eea3",
+    "name": "BMW",
+    "brand": "BMW",
+    "price": 1000000.0
+  },
+  {
+    "uuid": "fdbb0052-2a76-46a5-99b8-fd663ccc73d5",
+    "name": "TEST",
+    "brand": "TEST",
+    "price": 10.0
   }
 ]

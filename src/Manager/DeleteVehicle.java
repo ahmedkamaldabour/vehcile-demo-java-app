@@ -17,7 +17,6 @@ public class DeleteVehicle {
         System.out.println("\n=== Delete Vehicle ===");
 
         String vehicleId = vehicleInputService.getVehicleId();
-
-                vehicleService.deleteVehicleById(vehicleId);
+        vehicleService.deleteVehicleById(vehicleId);
     }
 }
