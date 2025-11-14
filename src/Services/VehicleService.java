@@ -5,6 +5,8 @@ import Validators.ValidationResult;
 import Validators.VehicleValidator;
 import Vehicles.Vehicle;
 
+import java.util.List;
+
 /**
  * Single Responsibility: Business logic for adding vehicles
  * Open/Closed Principle: Open for extension (can add more features) but closed for modification
@@ -26,6 +28,27 @@ public class VehicleService {
         this.validator = validator;
     }
 
+
+    public void listVehicles() {
+        List<Vehicle> vehicles = repository.findAll();
+
+        if (vehicles.isEmpty()) {
+            System.out.println("No vehicles found in the system.");
+            return;
+        }
+
+        System.out.println("Total vehicles: " + vehicles.size());
+        System.out.println("-------------------");
+
+        for (int i = 0; i < vehicles.size(); i++) {
+            Vehicle vehicle = vehicles.get(i);
+            System.out.println((i + 1) + ". [" + vehicle.getUuid() + "] ");
+            System.out.println(("   name") + ". " + vehicle.getName());
+            System.out.println("   Brand: " + vehicle.getBrand());
+            System.out.println("   Price: $" + String.format("%.2f", vehicle.getPrice()));
+            System.out.println();
+        }
+    }
     /**
      * Add a vehicle with validation
      * Returns true if successful, false otherwise

@@ -1,6 +1,7 @@
 package Manager;
 
 import Repository.VehicleRepositoryInterface;
+import Services.VehicleService;
 import Vehicles.Vehicle;
 
 import java.util.List;
@@ -14,14 +15,14 @@ import java.util.List;
  */
 public class ListAllVehicle {
 
-    private final VehicleRepositoryInterface repository;
+    private final VehicleService vehicleService;
 
     /**
      * Constructor with dependency injection
      * Like Laravel: public function __construct(VehicleRepository $repository)
      */
-    public ListAllVehicle(VehicleRepositoryInterface repository) {
-        this.repository = repository;
+    public ListAllVehicle(VehicleService vehicleService) {
+        this.vehicleService = vehicleService;
     }
 
     /**
@@ -30,24 +31,6 @@ public class ListAllVehicle {
      */
     public void listVehicles() {
         System.out.println("\n=== All Vehicles ===");
-
-        List<Vehicle> vehicles = repository.findAll();
-
-        if (vehicles.isEmpty()) {
-            System.out.println("No vehicles found in the system.");
-            return;
-        }
-
-        System.out.println("Total vehicles: " + vehicles.size());
-        System.out.println("-------------------");
-
-        for (int i = 0; i < vehicles.size(); i++) {
-            Vehicle vehicle = vehicles.get(i);
-            System.out.println((i + 1) + ". [" + vehicle.getUuid() + "] ");
-            System.out.println(("   name") + ". " + vehicle.getName());
-            System.out.println("   Brand: " + vehicle.getBrand());
-            System.out.println("   Price: $" + String.format("%.2f", vehicle.getPrice()));
-            System.out.println();
-        }
+        vehicleService.listVehicles();
     }
 }
