@@ -1,8 +1,29 @@
 ### IntelliJ IDEA ###
+.idea/
+*.iml
+# keep out/ ignored (compiled output)
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 .kotlin
+
+### Java / JVM Artifacts ###
+*.class
+*.log
+*.ctxt
+*.jar
+*.war
+*.ear
+*.hprof
+hs_err_pid*
+replay_pid*
+
+### Maven ###
+target/
+# If the Maven wrapper JAR is generated, ignore it
+.mvn/wrapper/maven-wrapper.jar
+# When using the maven-shade-plugin this file can appear
+dependency-reduced-pom.xml
 
 ### Eclipse ###
 .apt_generated
@@ -26,5 +47,18 @@ bin/
 ### VS Code ###
 .vscode/
 
-### Mac OS ###
+### OS / Editor ###
 .DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+### Logs & Reports ###
+*.out
+*.err
+
+### Optional: Runtime data files
+# If vehicles.json is generated at runtime and not hand-maintained, uncomment next line:
+src/vehicles.json
+
+# End of file
